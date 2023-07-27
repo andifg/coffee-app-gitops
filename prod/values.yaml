@@ -4,7 +4,7 @@
 backend:
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app/backend:2023-07-26-20-34-3641a2dbdc1dedf427d72fe6c12943df0411b611
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app/backend:2023-07-27-00-04-db61cc1c704d29daa58602ef48ad8a40c5567608
     pullPolicy: IfNotPresent
 frontend:
   replicaCount: 1
