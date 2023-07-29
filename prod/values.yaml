@@ -9,7 +9,7 @@ backend:
 frontend:
   replicaCount: 1
   image:
-    name: nginx
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app/frontend:2023-07-29-08-48-9c4cabfba060eafa50211b28bd6e63eeadea6107
     pullPolicy: IfNotPresent
 imagePullSecrets: []
 nameOverride: ""
