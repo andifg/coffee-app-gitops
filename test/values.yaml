@@ -14,7 +14,7 @@ frontend:
     repository: nginx
     pullPolicy: IfNotPresent
     tag: latest
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app/frontend:2023-07-29-08-48-9c4cabfba060eafa50211b28bd6e63eeadea6107
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app/frontend:2023-08-03-21-26-de9e1127cb2510cb095023af04aefbec23fa7c1b
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
