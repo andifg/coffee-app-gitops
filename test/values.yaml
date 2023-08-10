@@ -51,6 +51,3 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 autoscaling: {}
-spec:
-  source:
-    targetRevision: 2023-08-10-20-56-e4b0272def7861cddc1f8a6e3116f012f0b10e6e
