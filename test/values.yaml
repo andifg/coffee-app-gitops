@@ -1,20 +1,39 @@
 # Default values for coffee-app.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+
 backend:
+  containerPort: 8000
   replicaCount: 1
   image:
-    repository: nginx
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app/backend:2023-08-04-00-14-18fc45a66c297c145ca61b75d75c3ae437033fc6
     pullPolicy: IfNotPresent
-    tag: latest
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app/backend:2023-08-03-16-53-36abbb3054ffc87d8427c2d82b800562341ad774
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: false
+
+
 frontend:
+  containerPort: 80
   replicaCount: 1
   image:
-    repository: nginx
-    pullPolicy: IfNotPresent
-    tag: latest
     name: image-registry.openshift-image-registry.svc:5000/coffee-app/frontend:2023-08-03-21-36-da6c8c3b31a6d374ce05f37bc39d2bcafc2438ae
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    hosts:
+      - host: coffee-app.tests.apps.apps.ocp4.gummy-bears.de
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      enabled: true
+
+
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -29,24 +48,7 @@ serviceAccount:
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-service:
-  type: ClusterIP
-  port: 80
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
