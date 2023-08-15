@@ -1,9 +1,6 @@
 # Default values for coffee-app.
-
 nameOverride: coffee-app-test
 fullnameOverride: ""
-
-
 backend:
   containerPort: 8000
   replicaCount: 1
@@ -23,13 +20,11 @@ backend:
       certManager:
         enabled: true
       secretName: api-coffee-app-tls
-
-
 frontend:
   containerPort: 8080
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app/frontend:2023-08-03-21-36-da6c8c3b31a6d374ce05f37bc39d2bcafc2438ae
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2023-08-15-20-28-fb12f798427821e799547408b65e778a9909d768
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -44,9 +39,6 @@ frontend:
       certManager:
         enabled: true
       secretName: coffee-app-tls
-
-
-
 imagePullSecrets: []
 serviceAccount:
   # Specifies whether a service account should be created
@@ -59,7 +51,6 @@ serviceAccount:
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
