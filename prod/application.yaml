@@ -8,11 +8,11 @@ spec:
   sources:
     - chart: coffee-app
       repoURL: 663151261323.dkr.ecr.eu-central-1.amazonaws.com
-      targetRevision: 2023-08-15-20-24-8495bf5ef489871d9fcdb665b54f6897ff70e0d5
+      targetRevision: 2023-08-16-07-24-3e4613ea2ab12a1d0a9f5767eea41408a954684c
       helm:
         releaseName: coffee-app-prod
         valueFiles:
-        - $values/prod/values.yaml
+          - $values/prod/values.yaml
     - directory:
       path: prod/resources
       repoURL: git@github.com:andifg/coffee-app-gitops.git
