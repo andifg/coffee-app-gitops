@@ -1,22 +1,63 @@
 # Default values for coffee-app.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+
 backend:
+  containerPort: 8000
   replicaCount: 1
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-08-15-20-59-52126fef8a65a5c16399f9bcc828586b3543d07c
     pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    host: api.coffee-app.apps.ocp4.gummy-bears.de
+    path: /
+    pathType: ImplementationSpecific
+    tls:
+      enabled: true
+      certManager:
+        enabled: true
+      # If certManger is eanaled, this secret will be created, otherwise it needs to exist already
+      secretName: api-coffee-app-tls
+  mongodb:
+    host: mongodb
+    port: 27017
+    username: root
+    # This secret needs to exist already
+    passwordSecretName: mongodb-root-password
+
+
 frontend:
+  containerPort: 8080
   replicaCount: 1
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2023-08-15-20-28-fb12f798427821e799547408b65e778a9909d768
     pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+  ingress:
+    enabled: true
+    host: coffee-app.apps.ocp4.gummy-bears.de
+    path: /
+    pathType: ImplementationSpecific
+    tls:
+      enabled: true
+      certManager:
+        enabled: true
+      secretName: coffee-app-tls
+
+
+
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -25,24 +66,7 @@ serviceAccount:
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-service:
-  type: ClusterIP
-  port: 80
-ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+
 nodeSelector: {}
 tolerations: []
 affinity: {}

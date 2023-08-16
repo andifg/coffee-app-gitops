@@ -11,9 +11,15 @@ spec:
       targetRevision: 2023-08-15-20-24-8495bf5ef489871d9fcdb665b54f6897ff70e0d5
       helm:
         releaseName: coffee-app-test
+        valueFiles:
+        - $values/test/values.yaml
     - directory:
       path: test/resources
       repoURL: git@github.com:andifg/coffee-app-gitops.git
+    - repoURL: git@github.com:andifg/coffee-app-gitops.git
+      targetRevision: HEAD
+      ref: values
+
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: coffee-app
+    namespace: coffee-app-test
