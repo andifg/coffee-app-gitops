@@ -23,7 +23,7 @@ backend:
       # If certManger is eanaled, this secret will be created, otherwise it needs to exist already
       secretName: api-coffee-app-tls
   mongodb:
-    host: mongodb
+    host: coffee-app-test-mongodb
     port: 27017
     username: root
     # This secret needs to exist already
@@ -69,3 +69,18 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 autoscaling: {}
+
+
+mongodb:
+  podSecurityContext:
+    enabled: false
+    fsGroup: ""
+    runAsUser: "100108001"
+
+  containerSecurityContext:
+    enabled: false
+    runAsUser: "100108001"
+    runAsNonRoot: false
+
+  auth:
+    existingSecret: mongodb-root-password
