@@ -82,3 +82,7 @@ mongodb:
 
 minio:
   auth.existingSecret: minio-credentials
+  podSecurityContext:
+    fsGroup: ""
+  containerSecurityContext:
+    runAsUser: "1000750000"
