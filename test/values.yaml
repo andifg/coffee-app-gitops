@@ -4,7 +4,7 @@ backend:
   containerPort: 8000
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-10-08-14-27-db60887d16651a171442b589244fa08bb40962fc
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-10-08-21-27-1b2cf9d51dcd70a221231208656f997c8a500d40
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -31,8 +31,6 @@ backend:
     port: 9000
     coffee_images_bucket: coffee-images
     credentialsSecretName: minio-credentials
-
-
 frontend:
   containerPort: 8080
   replicaCount: 1
@@ -79,7 +77,6 @@ mongodb:
     runAsNonRoot: false
   auth:
     existingSecret: mongodb-root-password
-
 minio:
   auth.existingSecret: minio-credentials
   podSecurityContext:
