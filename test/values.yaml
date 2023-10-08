@@ -26,6 +26,13 @@ backend:
     username: root
     # This secret needs to exist already
     passwordSecretName: mongodb-root-password
+  minio:
+    host: minio
+    port: 9000
+    coffee_images_bucket: coffee-images
+    credentialsSecretName: minio-credentials
+
+
 frontend:
   containerPort: 8080
   replicaCount: 1
@@ -72,3 +79,6 @@ mongodb:
     runAsNonRoot: false
   auth:
     existingSecret: mongodb-root-password
+
+minio:
+  auth.existingSecret: minio-credentials
