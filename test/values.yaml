@@ -69,7 +69,7 @@ autoscaling: {}
 mongodb:
   podSecurityContext:
     enabled: false
-    fsGroup: ""
+    fsGroup: "0"
     runAsUser: "100108001"
   containerSecurityContext:
     enabled: false
@@ -78,8 +78,9 @@ mongodb:
   auth:
     existingSecret: mongodb-root-password
 minio:
-  auth.existingSecret: minio-credentials
+  auth:
+    existingSecret: minio-credentials
   podSecurityContext:
-    fsGroup: ""
+    fsGroup: "0"
   containerSecurityContext:
     runAsUser: "1000750000"
