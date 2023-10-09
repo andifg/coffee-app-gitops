@@ -91,4 +91,14 @@ mongodb:
 minio:
   auth:
     existingSecret: minio-credentials
-
+  podSecurityContext:
+    fsGroup: 1000750000
+  containerSecurityContext:
+    runAsUser: 1000750000
+  provisioning:
+    enabled: true
+    buckets:
+       - name: coffee-images
+         versioning: true
+    podSecurityContext:
+      enabled: false
