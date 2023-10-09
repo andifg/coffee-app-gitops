@@ -102,3 +102,5 @@ minio:
          versioning: true
     podSecurityContext:
       enabled: false
+    containerSecurityContext:
+      enabled: false 
