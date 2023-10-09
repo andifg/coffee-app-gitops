@@ -97,6 +97,9 @@ minio:
     enabled: false
   provisioning:
     enabled: true
+    extraCommands:
+    # Enable versioning on the coffee-images bucket, adapt to bucket name if customized
+    - mc version enable provisioning/coffee-images
     buckets:
     - name: coffee-images
       versioning: true
