@@ -92,9 +92,9 @@ minio:
   auth:
     existingSecret: minio-credentials
   podSecurityContext:
-    fsGroup: 1000750000
+    enabled: false
   containerSecurityContext:
-    runAsUser: 1000750000
+    enabled: false
   provisioning:
     enabled: true
     buckets:
@@ -103,4 +103,4 @@ minio:
     podSecurityContext:
       enabled: false
     containerSecurityContext:
-      enabled: false 
+      enabled: false
