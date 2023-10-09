@@ -98,8 +98,8 @@ minio:
   provisioning:
     enabled: true
     buckets:
-       - name: coffee-images
-         versioning: true
+      - name: coffee-images
+        versioning: true
     podSecurityContext:
       enabled: false
     containerSecurityContext:
