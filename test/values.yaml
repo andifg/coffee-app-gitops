@@ -1,5 +1,9 @@
+
+
 nameOverride: coffee-app-test
 fullnameOverride: ""
+
+
 backend:
   containerPort: 8000
   replicaCount: 1
@@ -31,6 +35,8 @@ backend:
     port: 9000
     coffee_images_bucket: coffee-images
     credentialsSecretName: minio-credentials
+
+
 frontend:
   containerPort: 8080
   replicaCount: 1
@@ -50,6 +56,9 @@ frontend:
       certManager:
         enabled: true
       secretName: coffee-app-tls
+
+
+
 imagePullSecrets: []
 serviceAccount:
   # Specifies whether a service account should be created
@@ -62,10 +71,12 @@ serviceAccount:
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
 autoscaling: {}
+
 mongodb:
   podSecurityContext:
     enabled: false
@@ -81,6 +92,6 @@ minio:
   auth:
     existingSecret: minio-credentials
   podSecurityContext:
-    fsGroup: "0"
+    fsGroup: 1000750000
   containerSecurityContext:
-    runAsUser: "1000750000"
+    runAsUser: 1000750000
