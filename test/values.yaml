@@ -1,14 +1,10 @@
-
-
 nameOverride: coffee-app-test
 fullnameOverride: ""
-
-
 backend:
   containerPort: 8000
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-10-09-06-22-68b72d555a7d48e63524878841fd04466c7d4198
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-10-11-02-02-28f7805ae3cef779d1ac808d0364eabd03b994d6
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -35,8 +31,6 @@ backend:
     port: 9000
     coffee_images_bucket: coffee-images
     credentialsSecretName: minio-credentials
-
-
 frontend:
   containerPort: 8080
   replicaCount: 1
@@ -56,9 +50,6 @@ frontend:
       certManager:
         enabled: true
       secretName: coffee-app-tls
-
-
-
 imagePullSecrets: []
 serviceAccount:
   # Specifies whether a service account should be created
@@ -71,12 +62,10 @@ serviceAccount:
 podAnnotations: {}
 podSecurityContext: {}
 securityContext: {}
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
 autoscaling: {}
-
 mongodb:
   podSecurityContext:
     enabled: false
@@ -98,11 +87,11 @@ minio:
   provisioning:
     enabled: true
     extraCommands:
-    # Enable versioning on the coffee-images bucket, adapt to bucket name if customized
-    - mc version enable provisioning/coffee-images
+      # Enable versioning on the coffee-images bucket, adapt to bucket name if customized
+      - mc version enable provisioning/coffee-images
     buckets:
-    - name: coffee-images
-      versioning: true
+      - name: coffee-images
+        versioning: true
     podSecurityContext:
       enabled: false
     containerSecurityContext:
