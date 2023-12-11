@@ -98,6 +98,7 @@ minio:
       enabled: false
 
 keycloak:
+  fullnameOverride: coffee-app-test-keycloak
   realm: Coffee-App
   client_id: coffee-app
   production: true
@@ -124,11 +125,12 @@ keycloak:
 
   ingress:
     enabled: true
-    hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de/
+    hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de
     extraTls:
       - {}
 
   postgresql:
+    fullnameOverride: coffee-app-test-keycloak-postgresql
     primary:
       podSecurityContext:
         enabled: false
