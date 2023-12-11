@@ -96,3 +96,46 @@ minio:
       enabled: false
     containerSecurityContext:
       enabled: false
+
+keycloak:
+  realm: Coffee-App
+  client_id: coffee-app
+  production: true
+  proxy: edge
+
+  podSecurityContext:
+    enabled: false
+
+
+  extraStartupArgs: "--import-realm"
+
+
+  containerSecurityContext:
+    enabled: false
+
+  extraVolumes:
+    - name: inital-realm
+      configMap:
+        name: keycloak-realm-import
+
+  extraVolumeMounts:
+    - name: inital-realm
+      mountPath: /opt/bitnami/keycloak/data/import/
+
+  ingress:
+    enabled: true
+    hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de/
+    extraTls:
+      - {}
+
+  postgresql:
+    primary:
+      podSecurityContext:
+        enabled: false
+      containerSecurityContext:
+        enabled: false
+    auth:
+      existingSecret: keycloak-postgres-password
+
+  auth:
+    adminUser: admin
