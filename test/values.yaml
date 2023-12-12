@@ -4,7 +4,7 @@ backend:
   containerPort: 8000
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-12-12-02-02-a63bec3a522f97ce8f37127101c683598718fd5d
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-12-12-13-22-d8a6039788aa934659d7d4f552b16cb9d466e967
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -122,7 +122,6 @@ keycloak:
           # Make sure its same as ingress.hostname
           - auth.coffee-app.tests.apps.ocp4.gummy-bears.de
         secretName: coffee-app-test-keycloak-tls
-
   postgresql:
     fullnameOverride: coffee-app-test-keycloak-postgresql
     primary:
