@@ -99,7 +99,7 @@ minio:
 keycloak:
   fullnameOverride: coffee-app-test-keycloak
   realm: Coffee-App
-  client_id: coffee-app
+  client_id: react-app
   production: true
   proxy: edge
   podSecurityContext:
