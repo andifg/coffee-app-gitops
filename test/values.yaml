@@ -4,7 +4,7 @@ backend:
   containerPort: 8000
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-12-09-02-01-5d4c78c3e2ce90ce6aff37290aff9b294a37c02e
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2023-12-12-02-02-a63bec3a522f97ce8f37127101c683598718fd5d
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -96,39 +96,29 @@ minio:
       enabled: false
     containerSecurityContext:
       enabled: false
-
 keycloak:
   fullnameOverride: coffee-app-test-keycloak
   realm: Coffee-App
   client_id: coffee-app
   production: true
   proxy: edge
-
   podSecurityContext:
     enabled: false
-
-
   extraStartupArgs: "--import-realm"
-
-
   containerSecurityContext:
     enabled: false
-
   extraVolumes:
     - name: inital-realm
       configMap:
         name: keycloak-realm-import
-
   extraVolumeMounts:
     - name: inital-realm
       mountPath: /opt/bitnami/keycloak/data/import/
-
   ingress:
     enabled: true
     hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de
     extraTls:
       - {}
-
   postgresql:
     fullnameOverride: coffee-app-test-keycloak-postgresql
     primary:
@@ -138,6 +128,5 @@ keycloak:
         enabled: false
     auth:
       existingSecret: keycloak-postgres-password
-
   auth:
     adminUser: admin
