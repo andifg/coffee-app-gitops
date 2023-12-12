@@ -134,3 +134,4 @@ keycloak:
       existingSecret: keycloak-postgres-password
   auth:
     adminUser: admin
+    existingSecret: keycloak-admin-password
