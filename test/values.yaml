@@ -118,7 +118,11 @@ keycloak:
     enabled: true
     hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de
     extraTls:
-      - {}
+      - hosts:
+          # Make sure its same as ingress.hostname
+          - auth.coffee-app.tests.apps.ocp4.gummy-bears.de
+        secretName: coffee-app-test-keycloak-tls
+
   postgresql:
     fullnameOverride: coffee-app-test-keycloak-postgresql
     primary:
