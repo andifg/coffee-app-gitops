@@ -35,7 +35,7 @@ frontend:
   containerPort: 8080
   replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-02-19-10-50-79ff2dabbedc50b25a6d7d45f064b0329301ebfd
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-02-19-13-44-d4359055470ac404c14a968738728f0a8c4c729f
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
