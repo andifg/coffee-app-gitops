@@ -136,4 +136,4 @@ keycloak:
     existingSecret: keycloak-admin-password
 resizer:
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-14-21-11-14e2c1d3ba2079ea9deb1cba5baf0fe37aad9218
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-16-13-16-9c851645e65778ae8eb307140de96bdabbec2855
