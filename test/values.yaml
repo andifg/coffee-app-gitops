@@ -29,7 +29,7 @@ backend:
   minio:
     host: coffee-app-test-minio
     port: 9000
-    coffee_images_bucket: coffee-images
+    coffeeImagesBucket: coffee-images
     credentialsSecretName: minio-credentials
 frontend:
   containerPort: 8080
@@ -64,8 +64,8 @@ resizer:
     name: "image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-16-13-16-9c851645e65778ae8eb307140de96bdabbec2855"
     pullPolicy: IfNotPresent
   minio:
-    original_images_prefix: original
-    coffee_images_bucket: coffee-images
+    originalImagesPrefix: original
+    coffeeImagesBucket: coffee-images
     credentialsSecretName: minio-credentials
 imagePullSecrets: []
 serviceAccount:
