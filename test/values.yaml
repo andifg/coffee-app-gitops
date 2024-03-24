@@ -50,6 +50,23 @@ frontend:
       certManager:
         enabled: true
       secretName: coffee-app-tls
+resizer:
+  logLevel: "info"
+  thumbnailWidth: 200
+  thumbnailFormat: "JPEG"
+  kafkaSslProtocol: "SSL"
+  kafkaSslCafile: "/var/run/secrets/custom/ca.crt"
+  kafkaSaslMechanism: "PLAIN"
+  kafkaConsumerGroup: coffee-app-resizer
+  reduceType: "THUMBNAIL"
+  replicaCount: 1
+  image:
+    name: "image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-16-13-16-9c851645e65778ae8eb307140de96bdabbec2855"
+    pullPolicy: IfNotPresent
+  minio:
+    original_images_prefix: original
+    coffee_images_bucket: coffee-images
+    credentialsSecretName: minio-credentials
 imagePullSecrets: []
 serviceAccount:
   # Specifies whether a service account should be created
@@ -89,6 +106,7 @@ minio:
     extraCommands:
       # Enable versioning on the coffee-images bucket, adapt to bucket name if customized
       - mc version enable provisioning/coffee-images
+      - mc event add provisioning/coffee-images arn:minio:sqs::COFFEE:kafka --event "put,delete" --prefix original/
     buckets:
       - name: coffee-images
         versioning: true
@@ -96,6 +114,14 @@ minio:
       enabled: false
     containerSecurityContext:
       enabled: false
+  extraEnvVars:
+    - name: MINIO_NOTIFY_KAFKA_SASL_PASSWORD_COFFEE
+      valueFrom:
+        secretKeyRef:
+          # Needs to match .Values.kafka.saslUserName
+          name: kafka-user
+          key: password
+  extraEnvVarsCM: minio-event-listener
 keycloak:
   fullnameOverride: coffee-app-test-keycloak
   realm: Coffee-App
@@ -117,6 +143,8 @@ keycloak:
   ingress:
     enabled: true
     hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
     extraTls:
       - hosts:
           # Make sure its same as ingress.hostname
@@ -134,6 +162,6 @@ keycloak:
   auth:
     adminUser: admin
     existingSecret: keycloak-admin-password
-resizer:
-  image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-16-13-16-9c851645e65778ae8eb307140de96bdabbec2855
+kafka:
+  clusterName: coffee-app-test
+  saslUserName: kafka-user
