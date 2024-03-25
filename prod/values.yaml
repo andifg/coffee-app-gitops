@@ -64,4 +64,4 @@ affinity: {}
 autoscaling: {}
 resizer:
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-16-13-16-9c851645e65778ae8eb307140de96bdabbec2855
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-25-07-26-a7b0383ae050532bfea9ec3481195633a168b0ba
