@@ -61,7 +61,7 @@ resizer:
   reduceType: "THUMBNAIL"
   replicaCount: 1
   image:
-    name: "image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-25-07-26-a7b0383ae050532bfea9ec3481195633a168b0ba"
+    name: "image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-25-07-36-e9e65a1e6015171437b51c9e2df4f64908e7cfe9"
     pullPolicy: IfNotPresent
   minio:
     originalImagesPrefix: original
