@@ -55,7 +55,7 @@ resizer:
   thumbnailWidth: 200
   thumbnailFormat: "JPEG"
   kafkaSslProtocol: "SSL"
-  kafkaSslCafile: "/var/run/secrets/custom"
+  kafkaSslCaFile: "/var/run/secrets/custom"
   kafkaSaslMechanism: "PLAIN"
   kafkaConsumerGroup: coffee-app-resizer
   reduceType: "THUMBNAIL"
