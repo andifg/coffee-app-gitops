@@ -54,9 +54,9 @@ resizer:
   logLevel: "info"
   thumbnailWidth: 200
   thumbnailFormat: "JPEG"
-  kafkaSslProtocol: "SSL"
+  kafkaSecurityProtocol: "SASL_SSL"
   kafkaSslCaFile: "/var/run/secrets/custom"
-  kafkaSaslMechanism: "PLAIN"
+  kafkaSaslMechanism: "SCRAM-SHA-512"
   kafkaConsumerGroup: coffee-app-resizer
   reduceType: "THUMBNAIL"
   replicaCount: 1
