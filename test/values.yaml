@@ -52,7 +52,7 @@ frontend:
       secretName: coffee-app-tls
 resizer:
   logLevel: "info"
-  thumbnailWidth: 200
+  thumbnailWidth: 1200
   thumbnailFormat: "JPEG"
   kafkaSecurityProtocol: "SASL_SSL"
   kafkaSslCaFile: "/var/run/secrets/custom"
