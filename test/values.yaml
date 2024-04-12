@@ -123,7 +123,6 @@ minio:
           key: password
   extraEnvVarsCM: minio-event-listener
 keycloak:
-  fullnameOverride: coffee-app-test-keycloak
   realm: Coffee-App
   client_id: react-app
   production: true
@@ -151,7 +150,6 @@ keycloak:
           - auth.coffee-app.tests.apps.ocp4.gummy-bears.de
         secretName: coffee-app-test-keycloak-tls
   postgresql:
-    fullnameOverride: coffee-app-test-keycloak-postgresql
     primary:
       podSecurityContext:
         enabled: false
