@@ -1,146 +1,34 @@
-nameOverride: coffee-app-test
 fullnameOverride: ""
 backend:
-  containerPort: 8000
-  replicaCount: 1
+  log_level: "info"
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2024-04-04-02-02-d57f6a4e9fee5a187be4443549650fc74c21c46f
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 80
   ingress:
-    enabled: true
     host: api.coffee-app.tests.apps.ocp4.gummy-bears.de
-    path: /
-    pathType: ImplementationSpecific
-    tls:
-      enabled: true
-      certManager:
-        enabled: true
-      # If certManger is eanaled, this secret will be created, otherwise it needs to exist already
-      secretName: api-coffee-app-tls
-  mongodb:
-    host: coffee-app-test-mongodb
-    port: 27017
-    username: root
-    # This secret needs to exist already
-    passwordSecretName: mongodb-root-password
-  minio:
-    host: coffee-app-test-minio
-    port: 9000
-    coffeeImagesBucket: coffee-images
-    credentialsSecretName: minio-credentials
+
+
 frontend:
-  containerPort: 8080
-  replicaCount: 1
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-02-19-14-57-3e79a38dda5e705b0ecb47cfd658ceb34087fd24
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 80
   ingress:
-    enabled: true
     host: coffee-app.tests.apps.ocp4.gummy-bears.de
-    path: /
-    pathType: ImplementationSpecific
-    tls:
-      enabled: true
-      certManager:
-        enabled: true
-      secretName: coffee-app-tls
+
+
 resizer:
   logLevel: "info"
-  thumbnailWidth: 1200
-  thumbnailFormat: "JPEG"
-  kafkaSecurityProtocol: "SASL_SSL"
-  kafkaSslCaFile: "/var/run/secrets/custom"
-  kafkaSaslMechanism: "SCRAM-SHA-512"
-  kafkaConsumerGroup: coffee-app-resizer
-  reduceType: "THUMBNAIL"
-  replicaCount: 1
   image:
-    name: "image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-27-07-07-75b77e99b9c820675e1f2b1487e381ca831608b2"
-    pullPolicy: IfNotPresent
-  minio:
-    originalImagesPrefix: original
-    coffeeImagesBucket: coffee-images
-    credentialsSecretName: minio-credentials
-imagePullSecrets: []
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: false
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-podAnnotations: {}
-podSecurityContext: {}
-securityContext: {}
-nodeSelector: {}
-tolerations: []
-affinity: {}
-autoscaling: {}
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-27-07-07-75b77e99b9c820675e1f2b1487e381ca831608b2
+
+
 mongodb:
-  podSecurityContext:
-    enabled: false
-    fsGroup: "0"
-    runAsUser: "100108001"
-  containerSecurityContext:
-    enabled: false
-    runAsUser: "100108001"
-    runAsNonRoot: false
   auth:
     existingSecret: mongodb-root-password
 minio:
   auth:
     existingSecret: minio-credentials
-  podSecurityContext:
-    enabled: false
-  containerSecurityContext:
-    enabled: false
-  provisioning:
-    enabled: true
-    extraCommands:
-      # Enable versioning on the coffee-images bucket, adapt to bucket name if customized
-      - mc version enable provisioning/coffee-images
-      - mc event add provisioning/coffee-images arn:minio:sqs::COFFEE:kafka -p --event "put,delete" --prefix original/
-    buckets:
-      - name: coffee-images
-        versioning: true
-    podSecurityContext:
-      enabled: false
-    containerSecurityContext:
-      enabled: false
-  extraEnvVars:
-    - name: MINIO_NOTIFY_KAFKA_SASL_PASSWORD_COFFEE
-      valueFrom:
-        secretKeyRef:
-          # Needs to match .Values.kafka.saslUserName
-          name: kafka-user
-          key: password
-  extraEnvVarsCM: minio-event-listener
+
 keycloak:
-  realm: Coffee-App
-  client_id: react-app
-  production: true
-  proxy: edge
-  podSecurityContext:
-    enabled: false
-  extraStartupArgs: "--import-realm"
-  containerSecurityContext:
-    enabled: false
-  extraVolumes:
-    - name: inital-realm
-      configMap:
-        name: keycloak-realm-import
-  extraVolumeMounts:
-    - name: inital-realm
-      mountPath: /opt/bitnami/keycloak/data/import/
   ingress:
-    enabled: true
     hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt
@@ -150,16 +38,8 @@ keycloak:
           - auth.coffee-app.tests.apps.ocp4.gummy-bears.de
         secretName: coffee-app-test-keycloak-tls
   postgresql:
-    primary:
-      podSecurityContext:
-        enabled: false
-      containerSecurityContext:
-        enabled: false
     auth:
       existingSecret: keycloak-postgres-password
   auth:
     adminUser: admin
     existingSecret: keycloak-admin-password
-kafka:
-  clusterName: coffee-app-test
-  saslUserName: kafka-user
