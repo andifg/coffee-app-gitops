@@ -5,28 +5,21 @@ backend:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2024-04-04-02-02-d57f6a4e9fee5a187be4443549650fc74c21c46f
   ingress:
     host: api.coffee-app.tests.apps.ocp4.gummy-bears.de
-
-
 frontend:
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-02-19-14-57-3e79a38dda5e705b0ecb47cfd658ceb34087fd24
   ingress:
     host: coffee-app.tests.apps.ocp4.gummy-bears.de
-
-
 resizer:
   logLevel: "info"
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-03-27-07-07-75b77e99b9c820675e1f2b1487e381ca831608b2
-
-
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-04-13-16-56-9ab293faa0be364ec24e4cfb068bdb768a6699ab
 mongodb:
   auth:
     existingSecret: mongodb-root-password
 minio:
   auth:
     existingSecret: minio-credentials
-
 keycloak:
   ingress:
     hostname: auth.coffee-app.tests.apps.ocp4.gummy-bears.de
