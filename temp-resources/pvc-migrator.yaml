@@ -1,0 +1,47 @@
+# Used to move data from one PVC to another
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backup-copy-deployment
+  namespace: coffee-app-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app-container
+        image: 'registry.access.redhat.com/ubi9/ubi-minimal:9.3'
+        command:
+          - sh
+          - -c
+          - while true; do echo "Hello, World!"; sleep 1; done
+        volumeMounts:
+        - name: data
+          mountPath: /bitnami/postgresql
+        - name: backup-volume
+          mountPath: /backup
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-keycloak-postgresql-0
+      - name: backup-volume
+        persistentVolumeClaim:
+          claimName: backup-volume
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: backup-volume
+  namespace: coffee-app-test
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
