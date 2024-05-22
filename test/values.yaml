@@ -7,7 +7,7 @@ backend:
     host: api.coffee-app.tests.apps.ocp4.gummy-bears.de
 frontend:
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-05-21-20-44-5d8e5f771a2e3e7b3013147920d9ec9bbd1c0cf8
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-05-22-15-09-c97eb0f4b86cd32a2b2e75205488ca3e35e8ddc3
   ingress:
     host: coffee-app.tests.apps.ocp4.gummy-bears.de
 resizer:
