@@ -2,7 +2,7 @@ fullnameOverride: ""
 backend:
   log_level: "info"
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2024-06-09-15-47-e7fd0c1748096b300aca1a34efc157763d9d09af
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2024-06-10-13-45-e1d3d48ac1185cca10e3a54b4d88789ede40846a
   ingress:
     host: api.coffee-app.tests.apps.ocp4.gummy-bears.de
 frontend:
