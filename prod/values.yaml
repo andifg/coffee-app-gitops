@@ -1,67 +1,38 @@
-# Default values for coffee-app.
-nameOverride: ""
 fullnameOverride: ""
 backend:
-  containerPort: 8000
-  replicaCount: 1
+  log_level: "info"
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/backend:2024-06-14-07-12-83d21e614e35a27dc809606c5627b6c8a647b088
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 80
   ingress:
-    enabled: true
-    host: api.coffee-app.apps.ocp4.gummy-bears.de
-    path: /
-    pathType: ImplementationSpecific
-    tls:
-      enabled: true
-      certManager:
-        enabled: true
-      # If certManger is eanaled, this secret will be created, otherwise it needs to exist already
-      secretName: api-coffee-app-tls
-  mongodb:
-    host: mongodb
-    port: 27017
-    username: root
-    # This secret needs to exist already
-    passwordSecretName: mongodb-root-password
+    host: api.beanscore.de
 frontend:
-  containerPort: 8080
-  replicaCount: 1
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-06-14-08-50-f587c0833c20f2b0ad3c5e3c877af1866fa32c44
-    pullPolicy: IfNotPresent
-  service:
-    type: ClusterIP
-    port: 80
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-06-14-12-08-2101250665fca17f1e5db706889e8dd84f417d2d
   ingress:
-    enabled: true
-    host: coffee-app.apps.ocp4.gummy-bears.de
-    path: /
-    pathType: ImplementationSpecific
-    tls:
-      enabled: true
-      certManager:
-        enabled: true
-      secretName: coffee-app-tls
-imagePullSecrets: []
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: false
-  # Annotations to add to the service account
-  annotations: {}
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-podAnnotations: {}
-podSecurityContext: {}
-securityContext: {}
-nodeSelector: {}
-tolerations: []
-affinity: {}
-autoscaling: {}
+    host: beanscore.de
 resizer:
+  logLevel: "info"
   image:
     name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-05-06-20-15-fa8e3ac065c0450ca1aa92e9f5716545a11a6539
+mongodb:
+  auth:
+    existingSecret: mongodb-root-password
+minio:
+  auth:
+    existingSecret: minio-credentials
+keycloak:
+  ingress:
+    hostname: auth.beanscore.de
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+    extraTls:
+      - hosts:
+          # Make sure its same as ingress.hostname
+          - auth.beanscore.de
+        secretName: coffee-app-keycloak-tls
+  postgresql:
+    auth:
+      existingSecret: keycloak-postgres-password
+  auth:
+    adminUser: admin
+    existingSecret: keycloak-admin-password
