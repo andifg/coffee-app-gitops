@@ -1,0 +1,21 @@
+# Use to view/edit mongodb 
+# e.g Add missing field to all documents in a collection
+# db.coffee.updateMany({roasting_company: {$exists: false}},{$set:{roasting_company: "Roasting Company"}})
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-mongosh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-mongosh
+  template:
+    metadata:
+      labels:
+        app: mongodb-mongosh
+    spec:
+      containers:
+      - name: mongodb-mongosh
+        image: 'mongodb/mongosh:latest'
