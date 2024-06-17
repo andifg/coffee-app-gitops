@@ -36,3 +36,12 @@ keycloak:
   auth:
     adminUser: admin
     existingSecret: keycloak-admin-password
+
+backup:
+  enabled: true
+  keycloak:
+    enabled: true
+  minio:
+    enabled: true
+  mongodb:
+    enabled: true
