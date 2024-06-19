@@ -7,7 +7,7 @@ backend:
     host: api.beanscore.de
 frontend:
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-06-14-12-08-2101250665fca17f1e5db706889e8dd84f417d2d
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-06-19-19-46-0067b6859df7bfe2bcbe18836e214031a59960cd
   ingress:
     host: beanscore.de
 resizer:
@@ -36,7 +36,6 @@ keycloak:
   auth:
     adminUser: admin
     existingSecret: keycloak-admin-password
-
 backup:
   enabled: true
   keycloak:
