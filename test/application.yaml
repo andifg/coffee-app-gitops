@@ -8,7 +8,7 @@ spec:
   sources:
     - chart: coffee-app
       repoURL: 663151261323.dkr.ecr.eu-central-1.amazonaws.com
-      targetRevision: 2024-06-29-06-32-ae83d864f2d3d8849dbe59561a477072c90e0b14
+      targetRevision: 2024-07-11-20-12-0ab03a60ddb3748a4d545979a158cbc1aa7b1acd
       helm:
         releaseName: coffee-app-test
         valueFiles:
