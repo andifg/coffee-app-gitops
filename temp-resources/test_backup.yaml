@@ -1,0 +1,23 @@
+apiVersion: velero.io/v1
+kind: Backup
+metadata:
+  annotations:
+  name: coffee-app-migration-to-prod
+  namespace: openshift-adp
+spec:
+  defaultVolumesToFsBackup: false
+  orLabelSelectors:
+    - matchExpressions:
+        - key: backup-pvc-snapshot-to-s3
+          operator: In
+          values:
+            - 'true'
+  csiSnapshotTimeout: 10m0s
+  ttl: 672h0m0s
+  itemOperationTimeout: 4h0m0s
+  metadata: {}
+  storageLocation: aws-s3
+  hooks: {}
+  includedNamespaces:
+    - coffee-app-test
+  snapshotMoveData: true
