@@ -13,7 +13,7 @@ frontend:
 resizer:
   logLevel: "info"
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-06-29-06-42-052f5a55769ae31beab484672762a676df7b8504
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/resizer:2024-10-13-12-11-fbee5acc3b84b602dada5fd283f2debfc36a92a0
 mongodb:
   auth:
     existingSecret: mongodb-root-password
