@@ -7,7 +7,7 @@ backend:
     host: api.test.beanscore.de
 frontend:
   image:
-    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-10-30-02-05-363e3d6fc6bed92dc51cdc382ec4a4562cb85099
+    name: image-registry.openshift-image-registry.svc:5000/coffee-app-build/frontend:2024-10-31-02-06-cdba0fb00447dae31165fd695a6f34c3cfc32ae4
   ingress:
     host: test.beanscore.de
 resizer:
